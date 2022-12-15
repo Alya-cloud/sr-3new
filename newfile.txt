@@ -1,0 +1,85 @@
+import java.util.Scanner;
+
+public class LabThree {
+
+    private final int MAX_ARRAY_SIZE = 100;
+    private final Scanner scan = new Scanner(System.in);
+
+    public void taskOne() {
+        int size = 1;
+        double sum = 0;
+        boolean isStopped = false;
+        double[] array = new double[MAX_ARRAY_SIZE];
+        double[] modifiedArray = new double[MAX_ARRAY_SIZE];
+        System.out.print("Массив: ");
+        do {
+            String[] input = scan.nextLine().split(" ");
+            for (String s : input) {
+                if (s.equals("quit")) {
+                    isStopped = true;
+                    break;
+                }
+                try {
+                    array[size - 1] = Double.parseDouble(s);
+                    sum += array[size - 1];
+                    modifiedArray[size - 1] = (double) sum / size;
+                    size++;
+                } catch (Exception e) {
+                    System.out.println("You should input numbers or if you want to finish sequence type quit");
+                }
+            }
+        } while (!isStopped);
+        System.out.print("Исходный массив: ");
+        for (int i = 0; i < size - 1; i++) {
+            System.out.printf("%.1f ", array[i]);
+        }
+        System.out.print("\nМассив после обработки: ");
+        for (int i = 0; i < size - 1; i++) {
+            array[i] = modifiedArray[i];
+            System.out.printf("%.1f ", array[i]);
+        }
+        scan.close();
+    }
+
+    public void taskTwo() {
+        int size = 1;
+        boolean isStopped = false;
+        int sortedArraySize = 0;
+        double previous = Double.MIN_VALUE;
+        double[] array = new double[MAX_ARRAY_SIZE];
+        double[] sortedArray = new double[MAX_ARRAY_SIZE];
+        System.out.print("Массив: ");
+        do {
+            String[] input = scan.nextLine().split(" ");
+            for (String s : input) {
+                if (s.equals("quit")) {
+                    isStopped = true;
+                    break;
+                }
+                try {
+                    array[size - 1] = Double.parseDouble(s);
+                    if (array[size - 1] > previous) {
+                        previous = array[size - 1];
+                        sortedArray[sortedArraySize] = previous;
+                        sortedArraySize++;
+                    }
+                    size++;
+                } catch (Exception e) {
+                    System.out.println("You should input numbers or if you want to finish sequence type quit");
+                }
+            }
+        } while (!isStopped);
+
+        System.out.print("Исходный массив: ");
+        for (int i = 0; i < size - 1; i++) {
+            System.out.printf("%.1f ", array[i]);
+            if(i<sortedArraySize) array[i] = 0;
+        }
+        System.out.print("\nМассив после обработки: ");
+        for (int i = 0; i < sortedArraySize; i++) {
+            array[i] = sortedArraySize;
+            System.out.printf("%.1f ", array[i]);
+        }
+        scan.close();
+    }
+}
